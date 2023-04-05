@@ -3,7 +3,7 @@ package com.reactive.graphql.microservices.graphqlplayground;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.reactive.graphql.microservices.graphqlplayground.customer")
 public class GraphqlPlaygroundApplication {
 
 	public static void main(String[] args) {
