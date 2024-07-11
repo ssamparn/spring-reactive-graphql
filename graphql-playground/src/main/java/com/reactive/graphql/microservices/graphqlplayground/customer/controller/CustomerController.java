@@ -2,6 +2,7 @@ package com.reactive.graphql.microservices.graphqlplayground.customer.controller
 
 import lombok.RequiredArgsConstructor;
 
+import com.reactive.graphql.microservices.graphqlplayground.customer.model.AgeRangeFilter;
 import com.reactive.graphql.microservices.graphqlplayground.customer.model.Customer;
 import com.reactive.graphql.microservices.graphqlplayground.customer.service.CustomerService;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -29,5 +30,11 @@ public class CustomerController {
     @QueryMapping(name = "customerNameContains")
     public Flux<Customer> customerNameContains(@Argument(name = "customerName") String customerName) {
         return customerService.customerNameContains(customerName);
+    }
+
+    @QueryMapping(name = "customersByAgeRange")
+    public Flux<Customer> customersByAgeRange(@Argument(name = "filter") AgeRangeFilter ageRangeFilter) {
+        // Argument name must be filter or rename ageRangeFilter to filter for it to work implicitly.
+        return customerService.withinAge(ageRangeFilter.getMinAge(), ageRangeFilter.getMaxAge());
     }
 }

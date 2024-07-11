@@ -1,5 +1,6 @@
 package com.reactive.graphql.microservices.graphqlplayground.customer.service;
 
+import com.reactive.graphql.microservices.graphqlplayground.customer.model.AgeRangeFilter;
 import com.reactive.graphql.microservices.graphqlplayground.customer.model.Customer;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -26,5 +27,10 @@ public class CustomerService {
 
     public Flux<Customer> customerNameContains(String customerName) {
         return customerFlux.filter(customer -> customer.getName().contains(customerName));
+    }
+
+    public Flux<Customer> withinAge(Integer minAge, Integer maxAge) {
+        return customerFlux
+                .filter(customer -> customer.getAge() >= minAge && customer.getAge() <= maxAge);
     }
 }

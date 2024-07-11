@@ -1,6 +1,7 @@
 spring:
   graphql:
     schema:
+#      locations: classpath:graphql/hello-world
       locations: classpath:graphql/customer
     path: /graphql
     graphiql:
