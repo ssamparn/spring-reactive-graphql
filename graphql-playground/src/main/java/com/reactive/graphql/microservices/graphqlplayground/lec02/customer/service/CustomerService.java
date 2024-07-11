@@ -1,7 +1,6 @@
-package com.reactive.graphql.microservices.graphqlplayground.customer.service;
+package com.reactive.graphql.microservices.graphqlplayground.lec02.customer.service;
 
-import com.reactive.graphql.microservices.graphqlplayground.customer.model.AgeRangeFilter;
-import com.reactive.graphql.microservices.graphqlplayground.customer.model.Customer;
+import com.reactive.graphql.microservices.graphqlplayground.lec02.customer.model.Customer;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

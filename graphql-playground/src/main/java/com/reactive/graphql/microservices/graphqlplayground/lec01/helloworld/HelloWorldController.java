@@ -1,4 +1,4 @@
-package com.reactive.graphql.microservices.graphqlplayground.helloworld.web;
+package com.reactive.graphql.microservices.graphqlplayground.lec01.helloworld;
 
 import java.time.Duration;
 import java.util.concurrent.ThreadLocalRandom;

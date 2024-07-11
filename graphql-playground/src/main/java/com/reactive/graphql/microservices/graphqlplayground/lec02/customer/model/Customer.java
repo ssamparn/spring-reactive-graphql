@@ -1,4 +1,4 @@
-package com.reactive.graphql.microservices.graphqlplayground.customer.model;
+package com.reactive.graphql.microservices.graphqlplayground.lec02.customer.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,8 @@
 spring:
   graphql:
     schema:
-#      locations: classpath:graphql/hello-world
-      locations: classpath:graphql/customer
+#      locations: classpath:graphql/lec01
+      locations: classpath:graphql/lec02
     path: /graphql
     graphiql:
       enabled: true

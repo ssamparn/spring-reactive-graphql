@@ -1,10 +1,10 @@
-package com.reactive.graphql.microservices.graphqlplayground.customer.controller;
+package com.reactive.graphql.microservices.graphqlplayground.lec02.customer.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import com.reactive.graphql.microservices.graphqlplayground.customer.model.AgeRangeFilter;
-import com.reactive.graphql.microservices.graphqlplayground.customer.model.Customer;
-import com.reactive.graphql.microservices.graphqlplayground.customer.service.CustomerService;
+import com.reactive.graphql.microservices.graphqlplayground.lec02.customer.model.AgeRangeFilter;
+import com.reactive.graphql.microservices.graphqlplayground.lec02.customer.model.Customer;
+import com.reactive.graphql.microservices.graphqlplayground.lec02.customer.service.CustomerService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
