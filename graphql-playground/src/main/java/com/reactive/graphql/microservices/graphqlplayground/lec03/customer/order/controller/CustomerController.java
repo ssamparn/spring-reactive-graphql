@@ -28,7 +28,7 @@ public class CustomerController {
 
     @SchemaMapping(typeName = "Customer")
     public Flux<CustomerOrder> orders(Customer customer, @Argument Integer limit) {
-        log.info("Orders method invoked for: {}", customer.getName());
+        log.info("Orders method invoked for: {}", customer.getName()); // to demo N + 1 problem
         return orderService.ordersByCustomerName(customer.getName())
                 .take(limit);
     }
