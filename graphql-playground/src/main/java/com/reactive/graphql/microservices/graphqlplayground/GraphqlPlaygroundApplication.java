@@ -5,8 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(
 		scanBasePackages = {
-//				"com.reactive.graphql.microservices.graphqlplayground.lec01.helloworld",
-				"com.reactive.graphql.microservices.graphqlplayground.lec02.customer"
+//				"com.reactive.graphql.microservices.graphqlplayground.lec01.helloworld"
+//				"com.reactive.graphql.microservices.graphqlplayground.lec02.customer"
+				"com.reactive.graphql.microservices.graphqlplayground.lec03.customer.order"
 		}
 )
 public class GraphqlPlaygroundApplication {
