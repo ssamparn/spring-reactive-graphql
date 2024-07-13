@@ -1,10 +1,8 @@
-package com.reactive.graphql.microservices.graphqlplayground.lec03.customer.order.model;
+package com.reactive.graphql.microservices.graphqlplayground.lec05.customer.address.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,6 +11,4 @@ public class Customer {
     private Integer id;
     private String name;
     private Integer age;
-    private String city;
-    // private List<Address> orders; does not have to be part of Customer for it to return Orders.
 }

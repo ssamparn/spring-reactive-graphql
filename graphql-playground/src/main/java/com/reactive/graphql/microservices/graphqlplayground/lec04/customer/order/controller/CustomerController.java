@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Map;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec04.customer.order.model.Customer;
 import com.reactive.graphql.microservices.graphqlplayground.lec04.customer.order.model.CustomerOrder;
@@ -13,6 +14,7 @@ import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Controller
@@ -28,13 +30,20 @@ public class CustomerController {
     }
 
     // @BatchMapping is particularly used to fix N + 1 problem
+//    @BatchMapping(typeName = "Customer")
+//    public Flux<List<Address>> orders(List<Customer> customers) {
+//        log.info("Orders method invoked for: {}", customers);
+//        return this.orderService.ordersByCustomerNames(
+//                customers.stream()
+//                        .map(Customer::getName)
+//                        .toList()
+//        );
+//    }
+
+    // Another way to fix N + 1 problem
     @BatchMapping(typeName = "Customer")
-    public Flux<List<CustomerOrder>> orders(List<Customer> customers) {
+    public Mono<Map<Customer, List<CustomerOrder>>> orders(List<Customer> customers) {
         log.info("Orders method invoked for: {}", customers);
-        return this.orderService.ordersByCustomerNames(
-                customers.stream()
-                        .map(Customer::getName)
-                        .toList()
-        );
+        return this.orderService.ordersAsCustomerMap(customers);
     }
 }
