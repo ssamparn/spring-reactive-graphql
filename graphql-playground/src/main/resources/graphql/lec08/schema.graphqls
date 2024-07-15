@@ -1,0 +1,23 @@
+type Query {
+    level1: L1
+}
+
+type L1 {
+   level2: L2
+}
+
+type L2 {
+   level3: L3
+}
+
+type L3 {
+    level4: L4
+}
+
+type L4 {
+    level5: L5
+}
+
+type L5 {
+    id: ID
+}
