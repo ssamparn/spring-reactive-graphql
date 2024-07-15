@@ -6,7 +6,8 @@ spring:
 #      locations: classpath:graphql/lec03
 #      locations: classpath:graphql/lec04
 #      locations: classpath:graphql/lec05
-      locations: classpath:graphql/lec06
+#      locations: classpath:graphql/lec06
+      locations: classpath:graphql/lec07
     path: /graphql
     graphiql:
       enabled: true

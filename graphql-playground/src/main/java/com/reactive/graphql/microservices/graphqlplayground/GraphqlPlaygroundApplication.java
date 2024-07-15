@@ -10,7 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //				"com.reactive.graphql.microservices.graphqlplayground.lec03.customer.order"
 //				"com.reactive.graphql.microservices.graphqlplayground.lec04.customer.order"
 //				"com.reactive.graphql.microservices.graphqlplayground.lec05.customer.address"
-				"com.reactive.graphql.microservices.graphqlplayground.lec06.customer.order"
+//				"com.reactive.graphql.microservices.graphqlplayground.lec06.customer.order"
+				"com.reactive.graphql.microservices.graphqlplayground.lec07.customer.order"
 		}
 )
 public class GraphqlPlaygroundApplication {
