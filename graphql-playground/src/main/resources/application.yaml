@@ -11,8 +11,14 @@ spring:
 #      locations: classpath:graphql/lec08
 #      locations: classpath:graphql/lec09
 #      locations: classpath:graphql/lec10
-      locations: classpath:graphql/lec11
+#      locations: classpath:graphql/lec11
+      locations: classpath:graphql/lec12
     path: /graphql
     graphiql:
       enabled: true
       path: /graphiql
+
+# debug log is useful in lecture 12
+#logging:
+#  level:
+#    root: debug
