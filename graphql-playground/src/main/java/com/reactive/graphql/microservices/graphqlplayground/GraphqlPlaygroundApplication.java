@@ -19,10 +19,11 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 //				"com.reactive.graphql.microservices.graphqlplayground.lec11.union"
 //				"com.reactive.graphql.microservices.graphqlplayground.lec12.operationcaching"
 //				"com.reactive.graphql.microservices.graphqlplayground.lec13.customer.crud"
-				"com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription"
+//				"com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription"
+				"com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation"
 		}
 )
-@EnableR2dbcRepositories(basePackages = "com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription")
+@EnableR2dbcRepositories(basePackages = "com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation")
 public class GraphqlPlaygroundApplication {
 
 	public static void main(String[] args) {
