@@ -16,7 +16,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //				"com.reactive.graphql.microservices.graphqlplayground.lec09.scalartype"
 //				"com.reactive.graphql.microservices.graphqlplayground.lec10.schemadesign"
 //				"com.reactive.graphql.microservices.graphqlplayground.lec11.union"
-				"com.reactive.graphql.microservices.graphqlplayground.lec12.operationcaching"
+//				"com.reactive.graphql.microservices.graphqlplayground.lec12.operationcaching"
+//				"com.reactive.graphql.microservices.graphqlplayground.lec13.customer.crud"
+				"com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription"
 		}
 )
 public class GraphqlPlaygroundApplication {

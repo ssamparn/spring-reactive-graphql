@@ -12,7 +12,9 @@ spring:
 #      locations: classpath:graphql/lec09
 #      locations: classpath:graphql/lec10
 #      locations: classpath:graphql/lec11
-      locations: classpath:graphql/lec12
+#      locations: classpath:graphql/lec12
+#      locations: classpath:graphql/lec13
+      locations: classpath:graphql/lec14
     path: /graphql
     graphiql:
       enabled: true
