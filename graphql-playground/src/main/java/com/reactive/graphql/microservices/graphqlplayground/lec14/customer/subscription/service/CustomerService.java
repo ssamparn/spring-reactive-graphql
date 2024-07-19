@@ -3,7 +3,9 @@ package com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subs
 import lombok.RequiredArgsConstructor;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription.entity.Customer;
+import com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription.model.Action;
 import com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription.model.CustomerDto;
+import com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription.model.CustomerEvent;
 import com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription.model.DeleteResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription.model.Status;
 import com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription.repository.CustomerRepository;
@@ -16,6 +18,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CustomerService {
 
+    private final CustomerEventService customerEventService;
     private final CustomerRepository customerRepository;
 
     public Flux<CustomerDto> allCustomers() {
@@ -32,18 +35,21 @@ public class CustomerService {
         return Mono.just(dto)
                 .map(this::toEntity)
                 .flatMap(this.customerRepository::save)
-                .map(this::toDto);
+                .map(this::toDto)
+                .doOnNext(customer -> this.customerEventService.emitEvents(CustomerEvent.create(customer.getId(), Action.CREATED)));
     }
 
     public Mono<CustomerDto> updateCustomer(Integer id, CustomerDto dto) {
         return this.customerRepository.findById(id)
                 .map(c -> this.toEntity(id, dto))
                 .flatMap(this.customerRepository::save)
-                .map(this::toDto);
+                .map(this::toDto)
+                .doOnNext(customer -> this.customerEventService.emitEvents(CustomerEvent.create(customer.getId(), Action.UPDATED)));
     }
 
     public Mono<DeleteResponse> deleteCustomer(Integer id) {
         return this.customerRepository.deleteById(id)
+                .doOnSuccess(r -> this.customerEventService.emitEvents(CustomerEvent.create(id, Action.DELETED)))
                 .thenReturn(DeleteResponse.create(id, Status.SUCCESS))
                 .onErrorReturn(DeleteResponse.create(id, Status.FAILURE));
     }

@@ -2,6 +2,7 @@ package com.reactive.graphql.microservices.graphqlplayground;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication(
 		scanBasePackages = {
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 				"com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription"
 		}
 )
+@EnableR2dbcRepositories(basePackages = "com.reactive.graphql.microservices.graphqlplayground.lec14.customer.subscription")
 public class GraphqlPlaygroundApplication {
 
 	public static void main(String[] args) {
