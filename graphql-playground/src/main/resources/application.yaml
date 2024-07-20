@@ -15,7 +15,8 @@ spring:
 #      locations: classpath:graphql/lec12
 #      locations: classpath:graphql/lec13
 #      locations: classpath:graphql/lec14
-      locations: classpath:graphql/lec15
+#      locations: classpath:graphql/lec15
+      locations: classpath:graphql/lec16
     path: /graphql
     # websocket path is required only in lec14
     websocket:
@@ -23,6 +24,13 @@ spring:
     graphiql:
       enabled: true
       path: /graphiql
+
+customer:
+  service:
+    url: http://localhost:8080/graphql
+  events:
+    subscription:
+      url: ws://localhost:8080/graphql
 
 # debug log is useful in lecture 12
 #logging:

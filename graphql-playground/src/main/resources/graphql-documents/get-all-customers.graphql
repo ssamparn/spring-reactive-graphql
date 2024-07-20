@@ -1,0 +1,12 @@
+query GetAllCustomers {
+    customers {
+        ... CustomerDetails
+    }
+}
+
+fragment CustomerDetails on Customer {
+    id
+    name
+    age
+    city
+}
