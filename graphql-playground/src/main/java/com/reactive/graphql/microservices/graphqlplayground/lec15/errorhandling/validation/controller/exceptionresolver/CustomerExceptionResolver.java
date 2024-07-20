@@ -1,9 +1,9 @@
 package com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.controller.exceptionresolver;
 
-import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
+import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.exception.ApplicationException;
 import org.springframework.graphql.execution.DataFetcherExceptionResolver;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.stereotype.Component;
@@ -16,14 +16,20 @@ public class CustomerExceptionResolver implements DataFetcherExceptionResolver {
 
     @Override
     public Mono<List<GraphQLError>> resolveException(Throwable exception, DataFetchingEnvironment environment) {
+        ApplicationException applicationException = toApplicationException(exception);
         return Mono.just(
               List.of(GraphQLError.newError()
-                      .errorType(ErrorType.NOT_FOUND)
-                      .message(exception.getMessage())
+                      .errorType(applicationException.getErrorType())
+                      .message(applicationException.getMessage())
                       .path(environment.getExecutionStepInfo().getPath())
                       .location(environment.getField().getSourceLocation())
-                              .extensions(Map.of("timestamp", LocalDateTime.now()))
+                              .extensions(applicationException.getExtensions())
                       .build())
         );
+    }
+
+    private ApplicationException toApplicationException(Throwable exception) {
+        return ApplicationException.class.equals(exception.getClass()) ?
+                (ApplicationException) exception : new ApplicationException(ErrorType.INTERNAL_ERROR, exception.getMessage(), Collections.emptyMap());
     }
 }

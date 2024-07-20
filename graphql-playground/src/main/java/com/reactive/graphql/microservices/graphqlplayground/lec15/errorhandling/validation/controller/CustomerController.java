@@ -2,6 +2,7 @@ package com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling
 
 import lombok.RequiredArgsConstructor;
 
+import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.exception.ApplicationErrors;
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.model.CustomerDto;
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.model.DeleteResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.service.CustomerService;
@@ -25,13 +26,23 @@ public class CustomerController {
 
     @QueryMapping
     public Mono<CustomerDto> customerById(@Argument Integer id) {
-//        return this.customerService.customerById(id);
-        throw new RuntimeException("Some Error");
+        return this.customerService.customerById(id)
+                .switchIfEmpty(ApplicationErrors.noSuchUser(id));
     }
+
+//    @QueryMapping
+//    public Mono<Object> customerById(@Argument Integer id) {
+//        return this.customerService.customerById(id)
+//                .cast(Object.class)
+//                .switchIfEmpty(Mono.just(CustomerNotFound.create(id, "Customer not found")));
+//    }
 
     @MutationMapping
     public Mono<CustomerDto> createCustomer(@Argument("customer") CustomerDto customer) {
-        return this.customerService.createCustomer(customer);
+        return Mono.just(customer)
+                .filter(c -> c.getAge() >= 18)
+                .flatMap(this.customerService::createCustomer)
+                .switchIfEmpty(ApplicationErrors.mustBe18(customer));
     }
 
     @MutationMapping

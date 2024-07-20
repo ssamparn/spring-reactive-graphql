@@ -1,6 +1,7 @@
 type Query {
     customers: [Customer]!
-    customerById(id: ID!): Customer
+    customerById(id: ID!): Customer!
+#    customerById(id: ID!): CustomerResponse!
 }
 
 type Mutation {
