@@ -43,7 +43,8 @@ public class CustomerService {
     }
 
     public Mono<DeleteResponse> deleteCustomer(Integer id) {
-        return this.customerRepository.deleteById(id)
+        return this.customerRepository.findById(id)
+                .flatMap(customer -> customerRepository.deleteById(id))
                 .thenReturn(DeleteResponse.create(id, Status.SUCCESS))
                 .onErrorReturn(DeleteResponse.create(id, Status.FAILURE));
     }

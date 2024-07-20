@@ -1,6 +1,9 @@
 package com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.UUID;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.exception.ApplicationErrors;
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.model.CustomerDto;
@@ -10,9 +13,11 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import graphql.schema.DataFetchingEnvironment;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class CustomerController {
@@ -20,7 +25,9 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @QueryMapping
-    public Flux<CustomerDto> customers() {
+    public Flux<CustomerDto> customers(DataFetchingEnvironment environment) {
+        String xRequestId = environment.getGraphQlContext().getOrDefault("x-request-id", UUID.randomUUID().toString());
+        log.info("X-Request-Id of the caller application: {}", xRequestId);
         return this.customerService.allCustomers();
     }
 
