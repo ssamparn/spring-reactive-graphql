@@ -6,10 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.clientapp.client.CustomerClient;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerDto;
+import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.GenericResponse;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.graphql.ResponseError;
+import org.springframework.graphql.client.ClientResponseField;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -63,9 +67,17 @@ public class CustomerClientService implements CommandLineRunner {
     }
 
     private Mono<Void> getCustomerById() {
-        Mono<CustomerDto> customerMono = customerClient.queryWithDocumentAndVariable("get-customer-by-id", Map.of("id", 1))
-                .map(response -> response.field("customerById"))
-                .mapNotNull(field -> field.toEntity(CustomerDto.class));
+        Mono<GenericResponse<CustomerDto>> customerMono = customerClient.queryWithDocumentAndVariable("get-customer-by-id", Map.of("id", 1))
+                .map(clientResponse -> {
+                    ClientResponseField responseField = clientResponse.field("customerById");
+                    return responseField.getValue() != null ?
+                            new GenericResponse<>(responseField.toEntity(CustomerDto.class)) :
+                            new GenericResponse<>(responseField.getErrors()
+                                    .stream()
+                                    .map(ResponseError::getMessage)
+                                    .collect(Collectors.joining(";"))
+                            );
+                });
 
         return Mono.delay(Duration.ofSeconds(1))
                 .doFirst(() -> log.info("Executing raw query ...."))

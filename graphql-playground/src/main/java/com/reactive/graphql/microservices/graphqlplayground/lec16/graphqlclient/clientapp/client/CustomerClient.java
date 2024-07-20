@@ -20,7 +20,8 @@ public class CustomerClient {
     }
 
     public Mono<ClientGraphQlResponse> query(String queryString) {
-        return graphQlClient.document(queryString).execute();
+        return graphQlClient.document(queryString)
+                .execute();
     }
 
     public Mono<ClientGraphQlResponse> queryWithDocument(String documentName) {
