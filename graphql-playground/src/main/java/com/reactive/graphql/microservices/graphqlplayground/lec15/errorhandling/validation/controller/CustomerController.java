@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.exception.ApplicationErrors;
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.model.CustomerDto;
+import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.model.CustomerNotFound;
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.model.DeleteResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec15.errorhandling.validation.service.CustomerService;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -31,18 +32,18 @@ public class CustomerController {
         return this.customerService.allCustomers();
     }
 
-    @QueryMapping
-    public Mono<CustomerDto> customerById(@Argument Integer id) {
-        return this.customerService.customerById(id)
-                .switchIfEmpty(ApplicationErrors.noSuchUser(id));
-    }
-
 //    @QueryMapping
-//    public Mono<Object> customerById(@Argument Integer id) {
+//    public Mono<CustomerDto> customerById(@Argument Integer id) {
 //        return this.customerService.customerById(id)
-//                .cast(Object.class)
-//                .switchIfEmpty(Mono.just(CustomerNotFound.create(id, "Customer not found")));
+//                .switchIfEmpty(ApplicationErrors.noSuchUser(id));
 //    }
+
+    @QueryMapping
+    public Mono<Object> customerById(@Argument Integer id) {
+        return this.customerService.customerById(id)
+                .cast(Object.class)
+                .switchIfEmpty(Mono.just(CustomerNotFound.create(id, "Customer not found")));
+    }
 
     @MutationMapping
     public Mono<CustomerDto> createCustomer(@Argument("customer") CustomerDto customer) {

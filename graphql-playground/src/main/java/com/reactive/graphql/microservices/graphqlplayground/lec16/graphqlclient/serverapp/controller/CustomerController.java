@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerDto;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerNotFound;
+import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.DeleteResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.serverapp.service.CustomerService;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -29,6 +30,8 @@ public class CustomerController {
 //        return this.customerService.customerById(id)
 //                .switchIfEmpty(Mono.error(new RuntimeException("no such user found")));
 //    }
+
+    // Used to demo service returning union type
 
     @QueryMapping
     public Mono<Object> customerById(@Argument Integer id) {

@@ -1,0 +1,15 @@
+query GetCustomerById($id: ID!) {
+    customerById(id: $id) {
+        type: __typename
+        ... on Customer {
+            id
+            name
+            age
+            city
+        }
+        ... on CustomerNotFound {
+            id
+            message
+        }
+    }
+}

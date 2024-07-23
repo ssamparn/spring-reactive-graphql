@@ -11,14 +11,14 @@ import graphql.schema.TypeResolver;
 public class ClassTypeResolverConfig {
 
     @Bean
-    public RuntimeWiringConfigurer configurer(TypeResolver resolver) {
-        return c -> c.type("CustomerResponse", b -> b.typeResolver(resolver));
-    }
-
-    @Bean
-    public TypeResolver typeResolver(){
+    public TypeResolver typeResolver() {
         ClassNameTypeResolver resolver = new ClassNameTypeResolver();
         resolver.addMapping(CustomerDto.class, "Customer");
         return resolver;
+    }
+
+    @Bean
+    public RuntimeWiringConfigurer configurer(TypeResolver resolver) {
+        return c -> c.type("CustomerResponse", b -> b.typeResolver(resolver));
     }
 }

@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.clientapp.client.CustomerClient;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerDto;
+import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerNotFound;
+import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.GenericResponse;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.graphql.ResponseError;
@@ -28,7 +30,8 @@ public class CustomerClientService implements CommandLineRunner {
     public void run(String... args) {
         getAllCustomers()
                 .then(getAllCustomersWithDocumentName())
-                .then(getCustomerById())
+                .then(getCustomerById()) // run either getCustomerById() or getCustomerByIdWithUnion()
+//                .then(getCustomerByIdWithUnion())
                 .subscribe();
     }
 
@@ -85,4 +88,20 @@ public class CustomerClientService implements CommandLineRunner {
                 .doOnNext(customer -> log.info("Customer with id: 1: {}", customer))
                 .then();
     }
+
+    private Mono<Void> getCustomerByIdWithUnion() {
+        Mono<CustomerResponse> unionMono = customerClient.queryWithDocumentAndVariable("get-customer-by-id-with-type-name", Map.of("id", 1))
+                .map(clientResponse -> {
+                    ClientResponseField responseField = clientResponse.field("customerById");
+                    boolean isCustomer = "Customer".equals(clientResponse.field("customerById.type").getValue());
+                    return isCustomer ? responseField.toEntity(CustomerDto.class) : responseField.toEntity(CustomerNotFound.class);
+                });
+
+        return Mono.delay(Duration.ofSeconds(1))
+                .doFirst(() -> log.info("Executing raw query ...."))
+                .then(unionMono)
+                .doOnNext(customer -> log.info("Customer with id: {}", customer))
+                .then();
+    }
+
 }

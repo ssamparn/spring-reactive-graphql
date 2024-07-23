@@ -1,7 +1,7 @@
 type Query {
     customers: [Customer]!
 #    customerById(id: ID!): Customer
-    customerById(id: ID!): CustomerResponse!
+    customerById(id: ID!): CustomerResponse!    # used to demo client handling of union type
 }
 
 type Mutation {
@@ -31,4 +31,13 @@ type DeleteResponse {
 enum Status {
     SUCCESS
     FAILURE
+}
+
+# used to demo client handling of union type: uncomment union CustomerResponse and type CustomerNotFound
+
+union CustomerResponse = Customer | CustomerNotFound
+
+type CustomerNotFound {
+    id: ID!
+    message: String
 }

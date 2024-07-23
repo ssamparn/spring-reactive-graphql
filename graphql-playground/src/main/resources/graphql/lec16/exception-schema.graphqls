@@ -1,6 +1,0 @@
-union CustomerResponse = Customer | CustomerNotFound
-
-type CustomerNotFound {
-    id: ID!
-    message: String
-}
