@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @Component
 public class CustomerClient {
 
@@ -16,7 +18,10 @@ public class CustomerClient {
     private final HttpGraphQlClient graphQlClient;
 
     public CustomerClient(@Value("${customer.service.url}") String customerUrl) {
-        this.webClient = WebClient.builder().baseUrl(customerUrl).build();
+        this.webClient = WebClient.builder()
+                .baseUrl(customerUrl)
+                .defaultHeaders(headers -> headers.add("Content-Type", APPLICATION_JSON_VALUE))
+                .build();
         this.graphQlClient = HttpGraphQlClient.builder(webClient).build();
     }
 

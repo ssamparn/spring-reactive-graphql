@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.clientapp.client.CustomerClient;
+import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.clientapp.client.CustomerSubscriptionClient;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerDto;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerNotFound;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.DeleteResponse;
@@ -26,9 +27,14 @@ import reactor.core.publisher.Mono;
 public class CustomerClientService implements CommandLineRunner {
 
     private final CustomerClient customerClient;
+    private final CustomerSubscriptionClient subscriptionClient;
 
     @Override
     public void run(String... args) {
+        subscriptionClient.customerEvents()
+                .doOnNext(event -> log.info("****** Mutation Event: {} *******", event.toString()))
+                .subscribe();
+
         getAllCustomers()
                 .then(this.createNewCustomer())
                 .then(this.getAllCustomers())
