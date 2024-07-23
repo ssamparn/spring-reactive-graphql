@@ -26,7 +26,7 @@ public class CustomerController {
     @QueryMapping
     public Mono<CustomerDto> customerById(@Argument Integer id) {
         return this.customerService.customerById(id)
-                .switchIfEmpty(Mono.error(new RuntimeException("no such user found")));
+                .switchIfEmpty(Mono.error(new RuntimeException("Customer not found")));
     }
 
     // Used to demo service returning union type

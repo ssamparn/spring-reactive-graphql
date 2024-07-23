@@ -2,6 +2,7 @@ package com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.graphql.client.ClientGraphQlResponse;
 import org.springframework.graphql.client.HttpGraphQlClient;
 import org.springframework.stereotype.Component;
@@ -14,23 +15,21 @@ public class CustomerClient {
     private final WebClient webClient;
     private final HttpGraphQlClient graphQlClient;
 
-    public CustomerClient(WebClient webClient) {
-        this.webClient = webClient;
+    public CustomerClient(@Value("${customer.service.url}") String customerUrl) {
+        this.webClient = WebClient.builder().baseUrl(customerUrl).build();
         this.graphQlClient = HttpGraphQlClient.builder(webClient).build();
     }
 
-    public Mono<ClientGraphQlResponse> query(String queryString) {
-        return graphQlClient.document(queryString)
+    public Mono<ClientGraphQlResponse> graphQl(String queryString) {
+        return graphQlClient
+                .document(queryString)
                 .execute();
     }
 
-    public Mono<ClientGraphQlResponse> queryWithDocument(String documentName) {
-        return graphQlClient.documentName(documentName)
-                .execute();
-    }
-
-    public Mono<ClientGraphQlResponse> queryWithDocumentAndVariable(String documentName, Map<String, Object> variables) {
-        return graphQlClient.documentName(documentName)
+    public Mono<ClientGraphQlResponse> graphQl(String documentName, String operationName, Map<String, Object> variables) {
+        return graphQlClient
+                .documentName(documentName)
+                .operationName(operationName)
                 .variables(variables)
                 .execute();
     }

@@ -1,0 +1,37 @@
+query GetAllCustomers {
+    response: customers {
+        ... CustomerDetails
+    }
+}
+
+query GetCustomerById($id: ID!) {
+    response: customerById(id: $id) {
+        ... CustomerDetails
+    }
+}
+
+mutation CreateNewCustomer ($customer: CustomerRequest!) {
+    response: createCustomer(customer: $customer) {
+        ... CustomerDetails
+    }
+}
+
+mutation UpdateCustomer ($id: ID!, $customer: CustomerRequest!) {
+    response: updateCustomer(id: $id, customer: $customer) {
+        ... CustomerDetails
+    }
+}
+
+mutation DeleteCustomer ($id: ID!) {
+    response: deleteCustomer(id: $id) {
+        id
+        status
+    }
+}
+
+fragment CustomerDetails on Customer {
+    id
+    name
+    age
+    city
+}
