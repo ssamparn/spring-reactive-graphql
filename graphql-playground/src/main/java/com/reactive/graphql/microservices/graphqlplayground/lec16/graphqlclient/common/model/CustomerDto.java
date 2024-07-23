@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "create")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CustomerDto
-        implements CustomerResponse {
+public class CustomerDto {
+//        implements CustomerResponse {
 
     private Integer id;
     private String name;

@@ -3,8 +3,6 @@ package com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient
 import lombok.RequiredArgsConstructor;
 
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerDto;
-import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerNotFound;
-import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.CustomerResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.common.model.DeleteResponse;
 import com.reactive.graphql.microservices.graphqlplayground.lec16.graphqlclient.serverapp.service.CustomerService;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -25,20 +23,20 @@ public class CustomerController {
         return this.customerService.allCustomers();
     }
 
-//    @QueryMapping
-//    public Mono<CustomerDto> customerById(@Argument Integer id) {
-//        return this.customerService.customerById(id)
-//                .switchIfEmpty(Mono.error(new RuntimeException("no such user found")));
-//    }
+    @QueryMapping
+    public Mono<CustomerDto> customerById(@Argument Integer id) {
+        return this.customerService.customerById(id)
+                .switchIfEmpty(Mono.error(new RuntimeException("no such user found")));
+    }
 
     // Used to demo service returning union type
 
-    @QueryMapping
-    public Mono<Object> customerById(@Argument Integer id) {
-        return this.customerService.customerById(id)
-                .cast(Object.class)
-                .switchIfEmpty(Mono.just(CustomerNotFound.create(id, "Customer not found")));
-    }
+//    @QueryMapping
+//    public Mono<Object> customerById(@Argument Integer id) {
+//        return this.customerService.customerById(id)
+//                .cast(Object.class)
+//                .switchIfEmpty(Mono.just(CustomerNotFound.create(id, "Customer not found")));
+//    }
 
     @MutationMapping
     public Mono<CustomerDto> createCustomer(@Argument("customer") CustomerDto customer) {

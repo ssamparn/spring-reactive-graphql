@@ -15,8 +15,8 @@ spring:
 #      locations: classpath:graphql/lec12
 #      locations: classpath:graphql/lec13
 #      locations: classpath:graphql/lec14
-      locations: classpath:graphql/lec15
-#      locations: classpath:graphql/lec16
+#      locations: classpath:graphql/lec15
+      locations: classpath:graphql/lec16
     path: /graphql
     # websocket path is required only in lec14
     websocket:

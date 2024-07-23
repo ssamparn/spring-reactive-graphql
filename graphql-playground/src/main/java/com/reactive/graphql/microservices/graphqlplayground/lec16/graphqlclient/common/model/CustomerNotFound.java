@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "create")
-public class CustomerNotFound
-        implements CustomerResponse {
+public class CustomerNotFound {
+//        implements CustomerResponse {
 
     private Integer id;
     private String message;

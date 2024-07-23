@@ -90,7 +90,7 @@ public class CustomerClientService implements CommandLineRunner {
     }
 
     private Mono<Void> getCustomerByIdWithUnion() {
-        Mono<CustomerResponse> unionMono = customerClient.queryWithDocumentAndVariable("get-customer-by-id-with-type-name", Map.of("id", 1))
+        Mono<Object> unionMono = customerClient.queryWithDocumentAndVariable("get-customer-by-id-with-type-name", Map.of("id", 1))
                 .map(clientResponse -> {
                     ClientResponseField responseField = clientResponse.field("customerById");
                     boolean isCustomer = "Customer".equals(clientResponse.field("customerById.type").getValue());
