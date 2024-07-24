@@ -1,4 +1,4 @@
-package com.reactive.graphql.microservices.graphqlplayground;
+package com.reactive.graphql.microservices.graphqlplayground.exception;
 
 import java.util.UUID;
 

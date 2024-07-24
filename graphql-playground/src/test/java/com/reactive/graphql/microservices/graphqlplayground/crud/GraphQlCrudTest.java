@@ -1,4 +1,4 @@
-package com.reactive.graphql.microservices.graphqlplayground;
+package com.reactive.graphql.microservices.graphqlplayground.crud;
 
 import java.util.Map;
 
