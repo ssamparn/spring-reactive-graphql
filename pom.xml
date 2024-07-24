@@ -16,6 +16,7 @@
 
   <modules>
     <module>graphql-playground</module>
+    <module>graphql-movie-app</module>
   </modules>
 
 </project>
