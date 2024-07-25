@@ -9,4 +9,5 @@ public class Review {
     private String username;
     private String comment;
     private Double rating;
+
 }

@@ -7,4 +7,5 @@ public class WatchList {
 
     private Integer customerId;
     private Integer movieId;
+
 }

@@ -9,4 +9,5 @@ public class WatchListResponse {
 
     private Status status;
     private List<Integer> watchList;
+
 }

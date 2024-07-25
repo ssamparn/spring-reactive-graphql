@@ -1,1 +1,18 @@
-spring.application.name=graphql-movie-app
+spring:
+  application:
+    name: graphql-movie-app
+  graphql:
+    path: /graphql
+    graphiql:
+      enabled: true
+      path: /graphiql
+
+customer:
+  service:
+    url: http://localhost:7070/customer/
+movie:
+  service:
+    url: http://localhost:7070/movie/
+review:
+  service:
+    url: http://localhost:7070/review/

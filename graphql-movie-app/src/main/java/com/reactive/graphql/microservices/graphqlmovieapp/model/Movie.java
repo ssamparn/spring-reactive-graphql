@@ -10,4 +10,5 @@ public class Movie {
     private Double rating;
     private Integer releaseYear;
     private Genre genre;
+
 }

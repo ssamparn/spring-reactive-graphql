@@ -1,6 +1,8 @@
-package com.reactive.graphql.microservices.graphqlmovieapp.model;
+package com.reactive.graphql.microservices.graphqlmovieapp.dto;
 
 import lombok.Data;
+
+import com.reactive.graphql.microservices.graphqlmovieapp.model.Genre;
 
 @Data
 public class CustomerInput {
