@@ -1,0 +1,99 @@
+### Query Mappings ###
+type Query {
+    # on user profile navigation : show users favourite genres, watchlist and recommended movies
+    userProfile(id: ID!): UserProfile
+
+    # on home page load : show movies by genre - very basic movie high level summaries
+    # on user scroll : show more movies by genre - very basic movie high level summaries
+    moviesByGenre(genre: Genre): [MovieSummary]!
+
+    # on click of movie tile : load movie detailed information by movie id along with movie reviews
+    movieDetails(id: ID!): MovieDetails
+}
+
+scalar Float
+
+interface Movie {
+    id: ID!
+    title: String!
+    rating: Float!
+    releaseYear: Int!
+    genre: Genre!
+}
+
+type MovieSummary implements Movie {
+    id: ID!
+    title: String!
+    rating: Float!
+    releaseYear: Int!
+    genre: Genre!
+}
+
+type MovieDetails implements Movie {
+    id: ID!
+    title: String!
+    rating: Float!
+    releaseYear: Int!
+    genre: Genre!
+    reviews: [Review]!
+}
+
+enum Genre {
+    ACTION
+    ADVENTURE
+    ANIMATION
+    BIOGRAPHY
+    COMEDY
+    CRIME
+    DOCUMENTARY
+    DRAMA
+    FANTASY
+    HORROR
+    MYSTERY
+}
+
+type Review {
+    id: ID!
+    username: String
+    comment: String
+    rating: Int
+}
+
+type UserProfile {
+    id: ID!
+    name: String!
+    favoriteGenre: Genre!
+    watchList: [MovieSummary]!
+    recommended: [MovieSummary]!
+}
+
+### Mutation Mappings ###
+type Mutation {
+    # on click of add to watch list : add movies into user's watchlist
+    addToWatchlist(input: WatchListInput!): WatchListResponse!
+
+    # update user profile : user should update his profile with movie genres
+    updateUserProfile(input: CustomerInput!): UserProfile!
+}
+
+input CustomerInput {
+    id: ID!
+    name: String!
+    favoriteGenre: Genre!
+}
+
+input WatchListInput {
+    id: ID!
+    customerId: Int!
+    movieId: Int!
+}
+
+type WatchListResponse {
+    status: Status!
+    watchList: [MovieSummary]!
+}
+
+enum Status {
+    SUCCESS
+    FAILURE
+}
