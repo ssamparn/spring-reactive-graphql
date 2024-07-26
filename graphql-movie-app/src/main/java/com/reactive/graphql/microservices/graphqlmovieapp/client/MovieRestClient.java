@@ -1,5 +1,7 @@
 package com.reactive.graphql.microservices.graphqlmovieapp.client;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 
 import com.reactive.graphql.microservices.graphqlmovieapp.model.Genre;
@@ -12,6 +14,7 @@ import reactor.core.publisher.Flux;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@Slf4j
 @Component
 public class MovieRestClient {
 
@@ -25,6 +28,7 @@ public class MovieRestClient {
     }
 
     public Flux<Movie> moviesByIds(List<Integer> movieIds) {
+        log.info("movie service : getMoviesByIds: {}", movieIds);
         return movieIds.isEmpty() ? Flux.empty() : getMoviesByIds(movieIds);
     }
 
@@ -36,6 +40,7 @@ public class MovieRestClient {
     }
 
     public Flux<Movie> moviesByGenre(Genre movieGenre) {
+        log.info("movie service : getMoviesByGenre: {}", movieGenre);
         return this.webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/{genre}/recommended").build(movieGenre))
                 .retrieve()

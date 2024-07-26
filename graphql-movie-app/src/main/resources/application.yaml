@@ -9,10 +9,10 @@ spring:
 
 customer:
   service:
-    url: http://localhost:7070/customer/
+    url: http://localhost:7070/customer
 movie:
   service:
-    url: http://localhost:7070/movie/
+    url: http://localhost:7070/movie
 review:
   service:
-    url: http://localhost:7070/review/
+    url: http://localhost:7070/review
