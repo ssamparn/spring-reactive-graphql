@@ -14,5 +14,5 @@ public class Customer {
     private String name;
     private Integer age;
     private String city;
-    // private List<Address> orders; does not have to be part of Customer for it to return Orders.
+    // private List<CustomerOrder> orders; does not have to be part of Customer for it to return Orders.
 }
